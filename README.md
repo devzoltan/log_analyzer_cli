@@ -1,4 +1,4 @@
-# Java S1 – Log Analyzer CLI
+# Java – Log Analyzer CLI
 
 Ein kleines, bewusst simples Java-CLI-Tool zum Einlesen einer Logdatei und zum Ausgeben von Statistiken.  
 Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführbar (inkl. Tests).
