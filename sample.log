@@ -1,0 +1,11 @@
+2026-01-14 10:00:01 INFO AuthService - Login ok (user=devzoltan)
+2026-01-14 10:00:02 WARN PaymentService - Slow response (ms=1200)
+2026-01-14 10:00:03 ERROR OrderService - Order failed (id=42)
+2026-01-14 10:00:04 INFO AuthService - Token refreshed
+2026-01-14 10:00:05 INFO OrderService - Order created (id=43)
+2026-01-14 10:00:06 WARN AuthService - Suspicious login attempt
+2026-01-14 10:00:07 ERROR PaymentService - Charge failed (code=DECLINED)
+2026-01-14 10:00:08 INFO PaymentService - Charge retry scheduled
+2026-01-14 10:00:09 INFO OrderService - Order shipped (id=43)
+2026-01-14 10:00:10 WARN OrderService - Delivery delayed (min=30)
+2026-01-14 10:00:11 ERROR AuthService - Account locked (user=devzoltan)

@@ -1,0 +1,15 @@
+# Maven / build output
+/target/
+/out/
+
+# IDE / editor
+/.idea/
+*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
