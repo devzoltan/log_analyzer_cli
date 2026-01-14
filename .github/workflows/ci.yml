@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Test (Maven Wrapper)
+    name: Tests (Maven Wrapper)
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -25,7 +25,9 @@ jobs:
 
       - name: Test (Unix)
         if: runner.os != 'Windows'
-        run: ./mvnw -B test
+        run: |
+          chmod +x mvnw
+          ./mvnw -B test
 
       - name: Test (Windows)
         if: runner.os == 'Windows'
