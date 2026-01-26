@@ -14,14 +14,15 @@ Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführba
 - Optionaler Filter: nur ein bestimmtes Log-Level berücksichtigen (`--level`)
 - Gibt **Top-N Sources** aus (`--top`)
 - Robustes Verhalten: nicht parsebare Zeilen werden als `UNKNOWN` gezählt
+- Hilfe: `-h` / `--help`
 
 ---
 
 ## Voraussetzungen
 
-- **Java 25 (LTS)** installiert
+- **JDK 17** installiert (Java 17)
 - Windows PowerShell (PowerShell 7 empfohlen)
-- Maven ist **nicht nötig**, wenn der **Maven Wrapper** genutzt wird
+- Maven ist **nicht nötig**, wenn der **Maven Wrapper** genutzt wird (`mvnw` / `mvnw.cmd`)
 
 ---
 
@@ -29,132 +30,114 @@ Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführba
 ```text
 log_analyzer_cli/
   src/
-    main/
-      java/
-        Main.java
-        LogEntry.java
-        LogParser.java
-    test/
-      java/
-        LogParserTest.java
+    main/java/de/devzoltan/loganalyzer/
+      Main.java
+      LogEntry.java
+      LogParser.java
+    test/java/de/devzoltan/loganalyzer/
+      LogParserTest.java
   sample.log
   run.ps1
   pom.xml
-  mvnw
-  mvnw.cmd
-  .mvn/
-    wrapper/
-  .gitignore
-  LICENSE
-  README.md
 ```
-
----
-
-## Log-Format (Erwartung)
-
-Minimaler Aufbau pro Zeile:
-```text
-YYYY-MM-DD HH:MM:SS LEVEL Source - Message
-```
-
-Beispiel:
-```text
-2026-01-14 10:00:01 INFO AuthService - Login ok (user=devzoltan)
-```
-
-Wenn eine Zeile **nicht** diesem Muster entspricht, wird sie als `UNKNOWN` gezählt.
 
 ---
 
 ## Quick Start (empfohlen)
 
+### Option A: PowerShell (`run.ps1`)
 Im Projekt-Root:
+
 ```powershell
 .\run.ps1
 ```
 
-Das Script:
+Falls PowerShell das Script wegen **ExecutionPolicy** blockiert:
 
-- kompiliert die Java-Dateien nach `.\out`
-- startet das Programm mit `.\sample.log`
-
----
-
-## Script-Nutzung (run.ps1)
 ```powershell
+Unblock-File .\run.ps1
 .\run.ps1
-.\run.ps1 .\sample.log 2
+```
+
+Oder einmalig (ohne Policy-Änderung):
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\run.ps1
+```
+
+Beispiele:
+
+```powershell
+.\run.ps1 .\sample.log 3
 .\run.ps1 .\sample.log 5 ERROR
 ```
 
-Parameter:
+### Option B: Windows CMD (`run.cmd`)
+Wenn du PowerShell nicht anfassen willst:
 
-1. **LogFile** (Default: `.\sample.log`)
-2. **Top** (Default: `3`)
-3. **Level** (Default: kein Filter; Werte: `INFO|WARN|ERROR`)
+```bat
+.\run.cmd
+.\run.cmd .\sample.log 5 ERROR
+```
+
+### Option C: Standard (Jar, plattformunabhängig)
+```powershell
+.\mvnw.cmd -B -DskipTests package
+java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 3
+```
 
 ---
 
-## Direkte CLI-Nutzung (ohne Script)
+## Standard Build & Run (Maven Wrapper)
 
-### Build (manuell)
-
-Wichtig: Vor dem Start muss zuerst kompiliert werden (sonst ist `.\out` leer).
+### Tests
 ```powershell
-Remove-Item -Recurse -Force .\out -ErrorAction SilentlyContinue
-javac -d .\out (Get-ChildItem -Recurse -Filter *.java).FullName
+.\mvnw.cmd -B test
 ```
 
-### Run
+### Paket bauen (JAR)
 ```powershell
-java -cp .\out Main .\sample.log
+.\mvnw.cmd -B -DskipTests package
+```
+
+### Run (JAR)
+```powershell
+java -jar .	arget\log-analyzer-cli-1.0.0.jar .\sample.log
+```
+
+Mit Optionen:
+```powershell
+java -jar .	arget\log-analyzer-cli-1.0.0.jar --top 2 .\sample.log
+java -jar .	arget\log-analyzer-cli-1.0.0.jar --level ERROR .\sample.log
+java -jar .	arget\log-analyzer-cli-1.0.0.jar --level INFO --top 5 .\sample.log
+```
+
+---
+
+## Build (manuell, ohne Maven)
+
+Wichtig: Vor dem Start muss zuerst kompiliert werden (sonst ist `.\out` leer).
+
+```powershell
+Remove-Item -Recurse -Force .\out -ErrorAction SilentlyContinue
+$MainSources = Get-ChildItem -Path .\src\main\java -Recurse -Filter *.java
+javac -d .\out $MainSources.FullName
+```
+
+### Run (Classpath)
+```powershell
+java -cp .\out de.devzoltan.loganalyzer.Main .\sample.log
 ```
 
 ### CLI-Argumente
 ```powershell
-java -cp .\out Main [--top N] [--level INFO|WARN|ERROR] <logfile>
+java -cp .\out de.devzoltan.loganalyzer.Main [--top N] [--level INFO|WARN|ERROR] <logfile>
 ```
-
-Beispiele:
-```powershell
-java -cp .\out Main --top 2 .\sample.log
-java -cp .\out Main --level ERROR .\sample.log
-java -cp .\out Main --level INFO --top 5 .\sample.log
-```
-
----
-
-## Tests (JUnit 5)
-
-### Empfohlen: Maven Wrapper (keine lokale Maven-Installation nötig)
-
-**Windows (PowerShell):**
-```powershell
-.\mvnw.cmd test
-```
-
-**Linux/macOS:**
-```bash
-./mvnw test
-```
-
-### Alternative: Mit installiertem Maven
-```powershell
-mvn test
-```
-
----
-
-## Exit-Codes
-
-- `1` Ungültige Argumente (z. B. falscher Parameter)
-- `2` Datei nicht gefunden
-- `3` IO-Fehler beim Lesen der Datei
 
 ---
 
 ## Beispielausgabe
+
 ```text
 File   : .\sample.log
 Lines  : 11
@@ -183,6 +166,37 @@ Top Sources (top 5):
 - AuthService: 1
 - OrderService: 1
 - PaymentService: 1
+```
+
+---
+
+## Screenshots (für GitHub)
+
+Empfohlene Screenshots (Windows):
+
+1) Quick Start:
+```powershell
+.
+run.ps1
+```
+
+2) Filter & Top:
+```powershell
+.
+run.ps1 .\sample.log 5 ERROR
+```
+
+3) Tests grün:
+```powershell
+.\mvnw.cmd -B test
+```
+
+Speichere sie z. B. unter:
+```text
+docs/screenshots/
+  01-run-default.png
+  02-run-filter-error.png
+  03-mvn-test.png
 ```
 
 ---

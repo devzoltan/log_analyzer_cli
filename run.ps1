@@ -13,10 +13,18 @@ param(
 $ErrorActionPreference = "Stop"
 
 Remove-Item -Recurse -Force .\out -ErrorAction SilentlyContinue | Out-Null
-javac -d .\out (Get-ChildItem -Recurse -Filter *.java).FullName
+
+$MainSources = Get-ChildItem -Path .\src\main\java -Recurse -Filter *.java
+if (-not $MainSources) {
+  throw "No Java sources found under .\src\main\java"
+}
+
+javac -d .\out $MainSources.FullName
+
+$MainClass = "de.devzoltan.loganalyzer.Main"
 
 if ($Level -ne "") {
-  java -cp .\out Main --level $Level --top $Top $LogFile
+  java -cp .\out $MainClass --level $Level --top $Top $LogFile
 } else {
-  java -cp .\out Main --top $Top $LogFile
+  java -cp .\out $MainClass --top $Top $LogFile
 }

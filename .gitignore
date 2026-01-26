@@ -1,6 +1,7 @@
 # Maven / build output
 /target/
 /out/
+/out_test/
 
 # IDE / editor
 /.idea/
@@ -13,3 +14,6 @@
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Compiled classes
+*.class

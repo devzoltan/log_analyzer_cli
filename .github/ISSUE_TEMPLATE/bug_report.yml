@@ -1,0 +1,43 @@
+name: Bug Report
+description: Fehler melden
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was ist passiert? Was hast du erwartet?
+      placeholder: Klare, kurze Beschreibung.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: Bitte konkrete Schritte (Commands, Logfile, Parameter).
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Umgebung
+      description: OS, Java-Version, Shell
+      placeholder: |
+        OS:
+        Java:
+        Shell:
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Output
+      description: Relevanter Output (gekürzt).
+      render: text

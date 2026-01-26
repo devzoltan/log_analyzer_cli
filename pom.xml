@@ -7,10 +7,36 @@
   <artifactId>log-analyzer-cli</artifactId>
   <version>1.0.0</version>
 
+  <name>Log Analyzer CLI</name>
+  <description>Simple Java CLI tool for analyzing log files.</description>
+  <url>https://github.com/devzoltan/log_analyzer_cli</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/license/mit/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>devzoltan</id>
+      <name>Zoltan Lung</name>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/devzoltan/log_analyzer_cli</url>
+    <connection>scm:git:https://github.com/devzoltan/log_analyzer_cli.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:devzoltan/log_analyzer_cli.git</developerConnection>
+  </scm>
+
   <properties>
-    <maven.compiler.release>25</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.10.2</junit.version>
+    <main.class>de.devzoltan.loganalyzer.Main</main.class>
   </properties>
 
   <dependencies>
@@ -24,6 +50,19 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${main.class}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
