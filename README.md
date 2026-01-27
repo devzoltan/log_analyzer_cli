@@ -1,6 +1,7 @@
+````md
 # Java – Log Analyzer CLI
 
-Ein kleines, bewusst simples Java-CLI-Tool zum Einlesen einer Logdatei und zum Ausgeben von Statistiken.  
+Ein kleines, bewusst simples Java-CLI-Tool zum Einlesen einer Logdatei und zum Ausgeben von Statistiken.
 Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführbar (inkl. Tests).
 
 ---
@@ -20,13 +21,14 @@ Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführba
 
 ## Voraussetzungen
 
-- **JDK 17** installiert (Java 17)
+- **JDK 17** installiert
 - Windows PowerShell (PowerShell 7 empfohlen)
 - Maven ist **nicht nötig**, wenn der **Maven Wrapper** genutzt wird (`mvnw` / `mvnw.cmd`)
 
 ---
 
 ## Projektstruktur
+
 ```text
 log_analyzer_cli/
   src/
@@ -39,13 +41,14 @@ log_analyzer_cli/
   sample.log
   run.ps1
   pom.xml
-```
+````
 
 ---
 
 ## Quick Start (empfohlen)
 
 ### Option A: PowerShell (`run.ps1`)
+
 Im Projekt-Root:
 
 ```powershell
@@ -72,15 +75,8 @@ Beispiele:
 .\run.ps1 .\sample.log 5 ERROR
 ```
 
-### Option B: Windows CMD (`run.cmd`)
-Wenn du PowerShell nicht anfassen willst:
+### Option B: Standard (JAR, plattformunabhängig)
 
-```bat
-.\run.cmd
-.\run.cmd .\sample.log 5 ERROR
-```
-
-### Option C: Standard (Jar, plattformunabhängig)
 ```powershell
 .\mvnw.cmd -B -DskipTests package
 java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 3
@@ -91,25 +87,29 @@ java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 3
 ## Standard Build & Run (Maven Wrapper)
 
 ### Tests
+
 ```powershell
 .\mvnw.cmd -B test
 ```
 
 ### Paket bauen (JAR)
+
 ```powershell
 .\mvnw.cmd -B -DskipTests package
 ```
 
 ### Run (JAR)
+
 ```powershell
-java -jar .	arget\log-analyzer-cli-1.0.0.jar .\sample.log
+java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log
 ```
 
 Mit Optionen:
+
 ```powershell
-java -jar .	arget\log-analyzer-cli-1.0.0.jar --top 2 .\sample.log
-java -jar .	arget\log-analyzer-cli-1.0.0.jar --level ERROR .\sample.log
-java -jar .	arget\log-analyzer-cli-1.0.0.jar --level INFO --top 5 .\sample.log
+java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 2
+java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --level ERROR
+java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --level INFO --top 5
 ```
 
 ---
@@ -125,11 +125,13 @@ javac -d .\out $MainSources.FullName
 ```
 
 ### Run (Classpath)
+
 ```powershell
 java -cp .\out de.devzoltan.loganalyzer.Main .\sample.log
 ```
 
 ### CLI-Argumente
+
 ```powershell
 java -cp .\out de.devzoltan.loganalyzer.Main [--top N] [--level INFO|WARN|ERROR] <logfile>
 ```
@@ -153,6 +155,7 @@ Top Sources (top 3):
 ```
 
 Mit Filter:
+
 ```text
 File   : .\sample.log
 Lines  : 11
@@ -174,24 +177,26 @@ Top Sources (top 5):
 
 Empfohlene Screenshots (Windows):
 
-1) Quick Start:
+1. Quick Start:
+
 ```powershell
-.
-run.ps1
+.\run.ps1
 ```
 
-2) Filter & Top:
+2. Filter & Top:
+
 ```powershell
-.
-run.ps1 .\sample.log 5 ERROR
+.\run.ps1 .\sample.log 5 ERROR
 ```
 
-3) Tests grün:
+3. Tests grün:
+
 ```powershell
 .\mvnw.cmd -B test
 ```
 
 Speichere sie z. B. unter:
+
 ```text
 docs/screenshots/
   01-run-default.png
@@ -203,12 +208,16 @@ docs/screenshots/
 
 ## Hinweise zur Repo-Hygiene
 
-- `out/` (manuelles Build-Verzeichnis) und `target/` (Maven Output) gehören **nicht** ins Git
-- dafür existiert `.gitignore`
+* `out/` (manuelles Build-Verzeichnis) und `target/` (Maven Output) gehören **nicht** ins Git
+* dafür existiert `.gitignore`
 
 ---
 
 ## Lizenz
 
-Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).  
+Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).
 Copyright (c) 2026 Zoltan Lung (devzoltan)
+
+```
+::contentReference[oaicite:0]{index=0}
+```
