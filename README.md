@@ -1,33 +1,37 @@
-````md
-# Java – Log Analyzer CLI
+# 📊 Java – Log Analyzer CLI
 
-Ein kleines, bewusst simples Java-CLI-Tool zum Einlesen einer Logdatei und zum Ausgeben von Statistiken.
-Ziel: **GitHub-/Praktikum-tauglich**, nachvollziehbar, reproduzierbar ausführbar (inkl. Tests).
+*Ein kleines, bewusst simples Java-CLI-Tool zum Einlesen einer Logdatei und zum Ausgeben von Statistiken.*
 
----
+[![Java](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://openjdk.org/)
+[![CLI](https://img.shields.io/badge/Interface-CLI-lightgrey.svg)]()
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Features
-
-- Liest eine Logdatei **zeilenweise**
-- Zählt:
-  - Gesamtanzahl Zeilen
-  - Level: `INFO`, `WARN`, `ERROR`, `UNKNOWN`
-- Optionaler Filter: nur ein bestimmtes Log-Level berücksichtigen (`--level`)
-- Gibt **Top-N Sources** aus (`--top`)
-- Robustes Verhalten: nicht parsebare Zeilen werden als `UNKNOWN` gezählt
-- Hilfe: `-h` / `--help`
+**Ziel:** GitHub-/Praktikum-tauglich, nachvollziehbar, reproduzierbar ausführbar (inkl. Tests).
 
 ---
 
-## Voraussetzungen
+## ✨ Features
 
-- **JDK 17** installiert
-- Windows PowerShell (PowerShell 7 empfohlen)
-- Maven ist **nicht nötig**, wenn der **Maven Wrapper** genutzt wird (`mvnw` / `mvnw.cmd`)
+* Liest eine Logdatei **zeilenweise**
+* Zählt:
+  * Gesamtanzahl Zeilen
+  * Level: `INFO`, `WARN`, `ERROR`, `UNKNOWN`
+* Optionaler Filter: nur ein bestimmtes Log-Level berücksichtigen (`--level`)
+* Gibt **Top-N Sources** aus (`--top`)
+* Robustes Verhalten: nicht parsebare Zeilen werden als `UNKNOWN` gezählt
+* Hilfe: `-h` / `--help`
 
 ---
 
-## Projektstruktur
+## 🛠 Voraussetzungen
+
+* **JDK 17** installiert
+* Windows PowerShell (PowerShell 7 empfohlen)
+* Maven ist **nicht nötig**, wenn der **Maven Wrapper** genutzt wird (`mvnw` / `mvnw.cmd`)
+
+---
+
+## 📁 Projektstruktur
 
 ```text
 log_analyzer_cli/
@@ -43,9 +47,9 @@ log_analyzer_cli/
   pom.xml
 ````
 
----
+-----
 
-## Quick Start (empfohlen)
+## 🚀 Quick Start (empfohlen)
 
 ### Option A: PowerShell (`run.ps1`)
 
@@ -55,20 +59,20 @@ Im Projekt-Root:
 .\run.ps1
 ```
 
-Falls PowerShell das Script wegen **ExecutionPolicy** blockiert:
+> **WARNUNG:** Falls PowerShell das Script wegen **ExecutionPolicy** blockiert:
 
 ```powershell
 Unblock-File .\run.ps1
 .\run.ps1
 ```
 
-Oder einmalig (ohne Policy-Änderung):
+*Oder einmalig (ohne Policy-Änderung):*
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\run.ps1
 ```
 
-Beispiele:
+**Beispiele:**
 
 ```powershell
 .\run.ps1 .\sample.log 3
@@ -82,9 +86,9 @@ Beispiele:
 java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 3
 ```
 
----
+-----
 
-## Standard Build & Run (Maven Wrapper)
+## ⚙️ Standard Build & Run (Maven Wrapper)
 
 ### Tests
 
@@ -104,7 +108,7 @@ java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 3
 java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log
 ```
 
-Mit Optionen:
+**Mit Optionen:**
 
 ```powershell
 java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --top 2
@@ -112,11 +116,11 @@ java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --level ERROR
 java -jar .\target\log-analyzer-cli-1.0.0.jar .\sample.log --level INFO --top 5
 ```
 
----
+-----
 
-## Build (manuell, ohne Maven)
+## 🔨 Build (manuell, ohne Maven)
 
-Wichtig: Vor dem Start muss zuerst kompiliert werden (sonst ist `.\out` leer).
+> **WICHTIG:** Vor dem Start muss zuerst kompiliert werden (sonst ist `.\out` leer).
 
 ```powershell
 Remove-Item -Recurse -Force .\out -ErrorAction SilentlyContinue
@@ -136,9 +140,11 @@ java -cp .\out de.devzoltan.loganalyzer.Main .\sample.log
 java -cp .\out de.devzoltan.loganalyzer.Main [--top N] [--level INFO|WARN|ERROR] <logfile>
 ```
 
----
+-----
 
-## Beispielausgabe
+## 📈 Beispielausgabe
+
+**Standard Output:**
 
 ```text
 File   : .\sample.log
@@ -154,7 +160,7 @@ Top Sources (top 3):
 - PaymentService: 3
 ```
 
-Mit Filter:
+**Mit Filter Output:**
 
 ```text
 File   : .\sample.log
@@ -171,31 +177,26 @@ Top Sources (top 5):
 - PaymentService: 1
 ```
 
----
+-----
 
-## Screenshots (für GitHub)
+## 📸 Screenshots (für GitHub)
 
 Empfohlene Screenshots (Windows):
 
-1. Quick Start:
+1.  **Quick Start:**
+    ```powershell
+    .\run.ps1
+    ```
+2.  **Filter & Top:**
+    ```powershell
+    .\run.ps1 .\sample.log 5 ERROR
+    ```
+3.  **Tests grün:**
+    ```powershell
+    .\mvnw.cmd -B test
+    ```
 
-```powershell
-.\run.ps1
-```
-
-2. Filter & Top:
-
-```powershell
-.\run.ps1 .\sample.log 5 ERROR
-```
-
-3. Tests grün:
-
-```powershell
-.\mvnw.cmd -B test
-```
-
-Speichere sie z. B. unter:
+*Speichere sie z. B. unter:*
 
 ```text
 docs/screenshots/
@@ -204,20 +205,17 @@ docs/screenshots/
   03-mvn-test.png
 ```
 
----
+-----
 
-## Hinweise zur Repo-Hygiene
+## 🧹 Hinweise zur Repo-Hygiene
 
-* `out/` (manuelles Build-Verzeichnis) und `target/` (Maven Output) gehören **nicht** ins Git
-* dafür existiert `.gitignore`
+> **HINWEIS:** \> \* `out/` (manuelles Build-Verzeichnis) und `target/` (Maven Output) gehören **nicht** ins Git.
+>
+>   * Dafür existiert `.gitignore`.
 
----
+-----
 
-## Lizenz
+## ⚖️ Lizenz
 
-Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).
+Dieses Projekt steht unter der [MIT-Lizenz](https://www.google.com/search?q=LICENSE).  
 Copyright (c) 2026 Zoltan Lung (devzoltan)
-
-```
-::contentReference[oaicite:0]{index=0}
-```
